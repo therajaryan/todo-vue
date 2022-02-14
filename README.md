@@ -22,4 +22,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 
-BASIC TODO APPLICATION IN VUE.JS
+A BASIC TODO APPLICATION IN VUE.JS
