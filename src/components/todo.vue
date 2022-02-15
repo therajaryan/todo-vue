@@ -6,9 +6,13 @@
       <p></p>
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
           <!-- <span>Hello</span> -->
-          <div>
-            {{todo.id}}.&nbsp;&nbsp;{{todo.title}}
+          <div class="todo-item-left">
+            <div class="todo-item-label">
+              {{todo.id}}.&nbsp;&nbsp;{{todo.title}}
+            </div>
+            <input class="todo-edit" type="text" v-model="todo.title">
           </div>
+
         <div class="remove-item" @click="$delete(index)">
           &times;
        </div>
@@ -66,8 +70,9 @@ export default {
         display: block;
         border: solid 1px #aacfe4;
         width: 150px;
-        margin: 2px 0 20px 10px
-        
+        margin: 2px 0 20px 10px;
+        color: #2c3e50;
+        font-size: 15px;
     }
     .todo-item {
       /* text-align: left; */
@@ -76,13 +81,31 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      
     }
     .remove-item {
       margin-right: 550px;
       margin-left: 15px;
       cursor: pointer;
     }
-
+    .todo-edit {
+      font-size: 15px;
+      border: solid 1px #aacfe4;
+      margin-left: 12px;
+      width: 100%;
+      color: #2c3e50;
+      padding: 10px;
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    }
+    .todo-item-label{
+      padding: 10px;
+      border: 1px solid white;
+      margin-left: 12px;
+    }
+    .todo-item-left{
+      display: flex;
+      align-items: center;
+    }
     #text {
         margin-top: 20px;
         margin-bottom: 20px;
