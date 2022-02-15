@@ -36,6 +36,13 @@ export default {
       ]
     }
   },
+  // computed: {
+  //   fullTask: {
+  //     get(){
+  //       return this.message;
+  //     },
+  //   }
+  // },
   methods: {
       addTodo(){
         if(this.message.trim().length == 0){
