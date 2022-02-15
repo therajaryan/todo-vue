@@ -7,10 +7,10 @@
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
           <!-- <span>Hello</span> -->
           <div class="todo-item-left">
-            <div class="todo-item-label">
+            <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
               {{todo.id}}.&nbsp;&nbsp;{{todo.title}}
             </div>
-            <input class="todo-edit" type="text" v-model="todo.title">
+            <input v-else class="todo-edit" type="text" v-model="todo.title">
           </div>
 
         <div class="remove-item" @click="$delete(index)">
@@ -45,6 +45,7 @@ export default {
               id: this.idForTodo,
               title: this.message,
               completed: false,
+              editing: false,
           })
           // alert('adding')
 
@@ -55,6 +56,9 @@ export default {
         this.todos.splice(index, 1)
 
         this.idForTodo--
+      },
+      editTodo(todo){
+        todo.editing = true
       }
   }
 }
@@ -90,7 +94,7 @@ export default {
     }
     .todo-edit {
       font-size: 15px;
-      border: solid 1px #aacfe4;
+      border: solid 1px white;
       margin-left: 12px;
       width: 100%;
       color: #2c3e50;
