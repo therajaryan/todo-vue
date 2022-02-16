@@ -2,13 +2,16 @@
   <div id="text">
        TASKS:
       <p></p>
-      <input style="margin:auto; width: 220px;" type="text" class="todo-input" placeholder="What's up" v-model="message" @keypress.enter="addTodo" >
+      <form>
+        <input style="margin:auto; width: 220px; margin-bottom:10px;" type="text" class="todo-input" placeholder="What's up" v-model="message">
+        <input style="margin:auto; width: 220px; margin-bottom:10px;" type="date" class="todo-input" v-model="ddate" >
+        <button v-on:click.prevent="addTodo" style="margin:auto; padding:5px;">Add</button>
+      </form>
       <p></p>
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
-          <!-- <span>Hello</span> -->
           <div class="todo-item-left">
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
-              {{todo.id}}.&nbsp;&nbsp;{{todo.title}}
+              {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
             <input v-else class="todo-edit" type="text" v-model="todo.title">
           </div>
@@ -26,7 +29,9 @@ export default {
   data () { 
     return {
       message: '',
+      ddate: '',
       idForTodo: 1,
+      counter: 1,
       todos: [
           //{
             // 'id': 1,
@@ -53,16 +58,21 @@ export default {
               title: this.message,
               completed: false,
               editing: false,
+              date: this.ddate,
           })
           // alert('adding')
-
+          this.ddate = ''
           this.message = ''
           this.idForTodo++
+          counter++
       },
       $delete(index){
         this.todos.splice(index, 1)
-
+        var x = this.idForTodo
         this.idForTodo--
+        // for(let i=x; i<counter; i++){
+        //   i.id
+        // }
       },
       editTodo(todo){
         todo.editing = true
