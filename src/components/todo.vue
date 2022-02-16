@@ -93,6 +93,9 @@ export default {
         todo.editing = true
       },
       doneEdit(todo) {
+        if(todo.title.trim().length == 0){
+          todo.title = this.editCache
+        }
         todo.editing = false
       },
       cancelEdit(todo){
