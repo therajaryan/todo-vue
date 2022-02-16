@@ -16,9 +16,8 @@
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
               {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
-            <input v-else class="todo-edit" type="text" v-model="todo.title">
+            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)">
           </div>
-
         <div class="remove-item" @click="$delete(index)">
           &times;
        </div>
@@ -49,11 +48,6 @@ export default {
   //     get(){
   //       return this.message;
   //     },
-  //   }
-  // },
-  // computed: {
-  //   sortedItems: function() {
-  //     return this.items.sort((a, b) => new Date(a.date) - new Date(b.date))
   //   }
   // },
   methods: {
@@ -87,6 +81,9 @@ export default {
       },
       editTodo(todo){
         todo.editing = true
+      },
+      doneEdit(todo) {
+        todo.editing = false
       }
   }
 }
