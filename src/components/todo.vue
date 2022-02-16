@@ -7,6 +7,9 @@
         <input style="margin:auto; width: 220px; margin-bottom:10px;" type="date" class="todo-input" v-model="ddate" >
         <button v-on:click.prevent="addTodo" style="margin:auto; padding:5px;">Add</button>
       </form>
+      <div style="margin-top: 10px;">
+        <button v-on:click.prevent="sortDate">Sort by Date</button>
+      </div>
       <p></p>
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
           <div class="todo-item-left">
@@ -48,7 +51,15 @@ export default {
   //     },
   //   }
   // },
+  // computed: {
+  //   sortedItems: function() {
+  //     return this.items.sort((a, b) => new Date(a.date) - new Date(b.date))
+  //   }
+  // },
   methods: {
+      sortDate(){
+        return this.items.sort((a, b) => new Date(a.date) - new Date(b.date))
+      },
       addTodo(){
         if(this.message.trim().length == 0){
           return
