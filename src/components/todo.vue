@@ -5,7 +5,7 @@
       <form>
         <input style="margin:auto; width: 220px; margin-bottom:10px;" type="text" class="todo-input" placeholder="What's up" v-model="message">
         <input style="margin:auto; width: 220px; margin-bottom:10px;" type="date" class="todo-input" v-model="ddate" >
-        <button v-on:click.prevent="addTodo" style="margin:auto; padding:5px;">Add</button>
+        <button v-on:click.prevent="addTodo" style="margin:auto; ">Add</button>
       </form>
       <div style="margin-top: 10px;">
         <button v-on:click.prevent="sortDate">Sort by Date</button>
@@ -16,7 +16,7 @@
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
               {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
-            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)" v-focus>
+            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" v-focus>
           </div>
         <div class="remove-item" @click="$delete(index)">
           &times;
@@ -34,6 +34,7 @@ export default {
       ddate: '',
       idForTodo: 1,
       counter: 1,
+      editCache: '',
       todos: [
           //{
             // 'id': 1,
@@ -88,9 +89,14 @@ export default {
         // }
       },
       editTodo(todo){
+        this.editCache = todo.title
         todo.editing = true
       },
       doneEdit(todo) {
+        todo.editing = false
+      },
+      cancelEdit(todo){
+        todo.title = this.editCache
         todo.editing = false
       }
   }
