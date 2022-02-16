@@ -16,7 +16,7 @@
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
               {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
-            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)">
+            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)" v-focus>
           </div>
         <div class="remove-item" @click="$delete(index)">
           &times;
@@ -50,6 +50,14 @@ export default {
   //     },
   //   }
   // },
+  directives: {
+    focus: {
+    // directive definition
+      inserted: function (el) {
+        el.focus()
+     }
+    }
+  },
   methods: {
       sortDate(){
         return this.items.sort((a, b) => new Date(a.date) - new Date(b.date))
