@@ -15,7 +15,7 @@
           <div class="todo-item-left">
             <input type="checkbox" v-model="todo.completed">
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label" :class="{check: todo.completed}" >
-              {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
+              {{parseInt(index)+1}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
             <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" v-focus>
           </div>
@@ -62,7 +62,9 @@ export default {
   },
   methods: {
       sortDate(){
-        return this.items.sort((a, b) => new Date(a.date) - new Date(b.date))
+        var x = this.todos.sort((a, b) => new Date(a.date) - new Date(b.date))
+        console.log(x)
+        return x
       },
       addTodo(){
         if(this.message.trim().length == 0){
@@ -83,11 +85,6 @@ export default {
       },
       $delete(index){
         this.todos.splice(index, 1)
-        var x = this.idForTodo
-        this.idForTodo--
-        // for(let i=x; i<counter; i++){
-        //   i.id
-        // }
       },
       editTodo(todo){
         this.editCache = todo.title
@@ -156,9 +153,6 @@ export default {
     .check{
       text-decoration: line-through;
       color: grey;
-    }
-    .uncheck{
-
     }
     #text {
         margin-top: 20px;
