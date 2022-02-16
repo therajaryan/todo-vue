@@ -13,7 +13,8 @@
       <p></p>
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
           <div class="todo-item-left">
-            <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label">
+            <input type="checkbox" v-model="todo.completed">
+            <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label" :class="{check: todo.completed}" >
               {{todo.id}}.&nbsp;&nbsp;{{todo.title}}&nbsp;&nbsp;&nbsp;&nbsp;{{todo.date}}
             </div>
             <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keypress.enter="doneEdit(todo)" @keyup.escape="cancelEdit(todo)" v-focus>
@@ -151,6 +152,13 @@ export default {
     .todo-item-left{
       display: flex;
       align-items: center;
+    }
+    .check{
+      text-decoration: line-through;
+      color: grey;
+    }
+    .uncheck{
+
     }
     #text {
         margin-top: 20px;
