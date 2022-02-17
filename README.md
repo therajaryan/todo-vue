@@ -22,4 +22,12 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 
-A BASIC TODO APPLICATION IN VUE.JS
+## A BASIC TODO APPLICATION IN VUE.JS
+
+### Features:
+Add a task
+Delete a Task
+Edit a Task
+Add due date for a task
+Sort tasks wrt due date
+Checkbox a task when completed
