@@ -16,9 +16,7 @@
     </div>
 </template>
 
-
 <script>
-
 export default {
     name: 'todo-group',
     data() {
@@ -31,13 +29,13 @@ export default {
             //   'id': 1,
             //   'name': 'Tech',
             //   'open': false,
+            //   'editing': false,
             // }
             ],
         }
     },
     directives: {
         focus: {
-        // directive definition
           inserted: function (el) {
             el.focus()
           }
