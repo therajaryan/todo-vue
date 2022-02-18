@@ -15,11 +15,16 @@
             <div class="remove-item" @click="$deleteG(index)">
                 &times;
             </div>
+            <div v-if="">
+                <Todo></Todo>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import todo from './todo.vue'
+import Todo from './todo.vue';
 let time = null;
 export default {
     name: 'todo-group',
@@ -29,8 +34,6 @@ export default {
             gName: '',
             idForGroup: 1,
             editCache: '',
-            delay: 700,
-            clicks: 0,
             timer: null,
             groups: [
             // {
@@ -42,6 +45,10 @@ export default {
             ],
         }
     },
+    components: {
+    "todo-list": todo,
+    Todo
+},
     directives: {
         focus: {
           inserted: function (el) {
