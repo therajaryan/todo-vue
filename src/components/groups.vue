@@ -12,6 +12,9 @@
                 </div>
                 <input v-else class="" type="text" v-model="g.title" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
             </div>
+            <div class="remove-item" @click="$deleteG(index)">
+                &times;
+            </div>
         </div>
     </div>
 </template>
@@ -80,9 +83,9 @@ export default {
             this.idForGroup++
         },
         
-        $delete(index){
-            this.g.splice(index, 1)
-         },
+        $deleteG(index){
+            this.groups.splice(index, 1)
+        },
 
         editGroup(g){
             this.editCache = g.title
@@ -103,5 +106,9 @@ export default {
 </script>
 
 <style>
-
+    .remove-item {
+      margin-right: 550px;
+      margin-left: 15px;
+      cursor: pointer;
+    }
 </style>
