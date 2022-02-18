@@ -5,11 +5,12 @@
             <br>
             <button v-on:click.prevent="addGroup" style="margin:auto; margin-bottom:20px;">Add Group</button>
         </form>
-        <div v-for="g in groups" :key="g.id" class="" >
+        <div v-for="(g, index) in groups" :key="g.id" class="" >
             <div>
-                <div>
-                    {{g.id}} &nbsp;&nbsp; {{g.name}}
+                <div v-if="!g.editing" @dblclick="editGroup(g)" class="">
+                    {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.name}}
                 </div>
+                <input v-else class="" type="text" v-model="g.name" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
             </div>
         </div>
     </div>
@@ -23,7 +24,8 @@ export default {
     data() {
         return{
             gName: '',
-            idForGroup: '',
+            idForGroup: 1,
+            editCache: '',
             groups: [
             // {
             //   'id': 1,
@@ -31,6 +33,14 @@ export default {
             //   'open': false,
             // }
             ],
+        }
+    },
+    directives: {
+        focus: {
+        // directive definition
+          inserted: function (el) {
+            el.focus()
+          }
         }
     },
     methods: {
@@ -42,8 +52,30 @@ export default {
               id: this.idForGroup,
               name: this.gName,
               open: false,
+              editing: false,
             })
+            this.gName = ''
+            this.idForGroup++
         },
+        
+        $delete(index){
+            this.g.splice(index, 1)
+         },
+
+        editGroup(g){
+            this.editCache = g.name
+            g.editing = true
+        },
+        doneEditG(g) {
+         if(g.name.trim().length == 0){
+              g.name = this.editCache
+            }
+            g.editing = false
+        },
+        cancelEditG(g){
+         g.name = this.editCache
+         g.editing = false
+        }
     },
 }
 </script>
