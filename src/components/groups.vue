@@ -7,27 +7,32 @@
         </form>
         <div v-for="(g, index) in groups" :key="g.id" class="" >
             <div>
-                <div v-if="!g.editing" @dblclick="editGroup(g)" class="">
-                    {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.name}}
+                <div v-if="!g.editing" @click="singleClick()" @dblclick="doubleClick(g)" class="">
+                    {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.title}}
                 </div>
-                <input v-else class="" type="text" v-model="g.name" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
+                <input v-else class="" type="text" v-model="g.title" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+let time = null;
 export default {
     name: 'todo-group',
     data() {
         return{
+            test: '',
             gName: '',
             idForGroup: 1,
             editCache: '',
+            delay: 700,
+            clicks: 0,
+            timer: null,
             groups: [
             // {
             //   'id': 1,
-            //   'name': 'Tech',
+            //   'title': 'Tech',
             //   'open': false,
             //   'editing': false,
             // }
@@ -42,13 +47,32 @@ export default {
         }
     },
     methods: {
+        
+        singleClick(){
+            // first clear  time
+            clearTimeout(time);
+            time = setTimeout(() => {
+            console.log('single click')
+            }, 400); 
+            return this.openTodo();
+        },
+        doubleClick(g){
+            clearTimeout(time);  
+            console.log('double click');
+            console.log(g);
+            return this.editGroup(g);
+        },
+        openTodo(){
+
+        },
+
         addGroup(){
             if(this.gName.trim().length == 0){
                 return
             }
             this.groups.push({
               id: this.idForGroup,
-              name: this.gName,
+              title: this.gName,
               open: false,
               editing: false,
             })
@@ -61,17 +85,17 @@ export default {
          },
 
         editGroup(g){
-            this.editCache = g.name
+            this.editCache = g.title
             g.editing = true
         },
         doneEditG(g) {
-         if(g.name.trim().length == 0){
-              g.name = this.editCache
+         if(g.title.trim().length == 0){
+              g.title = this.editCache
             }
             g.editing = false
         },
         cancelEditG(g){
-         g.name = this.editCache
+         g.title = this.editCache
          g.editing = false
         }
     },
