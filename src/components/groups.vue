@@ -5,6 +5,13 @@
             <br>
             <button v-on:click.prevent="addGroup" style="margin:auto; margin-bottom:20px;">Add Group</button>
         </form>
+        <div v-for="g in groups" :key="g.id" class="" >
+            <div>
+                <div>
+                    {{g.id}} &nbsp;&nbsp; {{g.name}}
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -16,6 +23,7 @@ export default {
     data() {
         return{
             gName: '',
+            idForGroup: '',
             groups: [
             // {
             //   'id': 1,
@@ -27,7 +35,14 @@ export default {
     },
     methods: {
         addGroup(){
-
+            if(this.gName.trim().length == 0){
+                return
+            }
+            this.groups.push({
+              id: this.idForGroup,
+              name: this.gName,
+              open: false,
+            })
         },
     },
 }
