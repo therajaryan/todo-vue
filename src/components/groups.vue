@@ -7,7 +7,7 @@
         </form>
         <div v-for="(g, index) in groups" :key="g.id" class="" >
             <div>
-                <div v-if="!g.editing" @click="singleClick()" @dblclick="doubleClick(g)" class="">
+                <div v-if="!g.editing" @click="singleClick(index)" @dblclick="doubleClick(g)" class="">
                     {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.title}}
                 </div>
                 <input v-else class="" type="text" v-model="g.title" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
@@ -15,7 +15,7 @@
             <div class="remove-item" @click="$deleteG(index)">
                 &times;
             </div>
-            <div v-if="">
+            <div id="tasks["+index+"]" style="display: none;">
                 <Todo></Todo>
             </div>
         </div>
@@ -58,13 +58,13 @@ export default {
     },
     methods: {
         
-        singleClick(){
+        singleClick(index){
             // first clear  time
             clearTimeout(time);
             time = setTimeout(() => {
             console.log('single click')
             }, 400); 
-            return this.openTodo();
+            return this.openTodo(index);
         },
         doubleClick(g){
             clearTimeout(time);  
@@ -72,7 +72,15 @@ export default {
             console.log(g);
             return this.editGroup(g);
         },
-        openTodo(){
+        openTodo(index){
+            var taskDiv = document.getElementById("tasks["+index+"]");
+            console.log(taskDiv);
+            if(taskDiv.style.display == 'none'){
+                taskDiv.style.display = 'block';
+            }
+            else{
+                taskDiv.style.display = 'none';
+            }
 
         },
 
