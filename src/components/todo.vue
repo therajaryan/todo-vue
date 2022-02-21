@@ -1,6 +1,6 @@
 <template>
   <div id="text">
-      <br><br>
+      
        TASKS:
       <br><br>
       <form>
@@ -30,11 +30,15 @@
 <script>
 export default {
   name: 'todo-list', 
+  props: {
+   groupID: Number,
+  },
   data () { 
     return {
       message: '',
       ddate: '',
       idForTodo: 1,
+      groupID: 0,
       // counter: 1,
       editCache: '',
       groups: [
@@ -68,6 +72,7 @@ export default {
      }
     }
   },
+  
   methods: {
       sortDate(){
         var x = this.todos.sort((a, b) => new Date(a.date) - new Date(b.date))

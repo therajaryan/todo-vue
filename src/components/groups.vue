@@ -7,7 +7,7 @@
         </form>
         <div v-for="(g, index) in groups" :key="g.id" class="" >
             <div>
-                <div v-if="!g.editing" @click="singleClick(parseInt(index))" @dblclick="doubleClick(g)" class="">
+                <div v-if="!g.editing" @click="singleClick(parseInt(index))" @dblclick="doubleClick(g)" class="grp">
                     {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.title}}
                 </div>
                 <input v-else class="" type="text" v-model="g.title" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
@@ -16,7 +16,7 @@
                 &times;
             </div>
             <div >
-                <Todo></Todo>
+                <Todo :groupID="g.id"></Todo>
             </div>
         </div>
     </div>
@@ -125,5 +125,8 @@ export default {
       margin-right: 550px;
       margin-left: 15px;
       cursor: pointer;
+    }
+    .grp{
+        margin-top: 25px;;
     }
 </style>
