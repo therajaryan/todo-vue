@@ -7,7 +7,7 @@
         </form>
         <div v-for="(g, index) in groups" :key="g.id" class="" >
             <div>
-                <div v-if="!g.editing" @click="singleClick(index)" @dblclick="doubleClick(g)" class="">
+                <div v-if="!g.editing" @click="singleClick(parseInt(index))" @dblclick="doubleClick(g)" class="">
                     {{parseInt(index)+1}}. &nbsp;&nbsp; {{g.title}}
                 </div>
                 <input v-else class="" type="text" v-model="g.title" @blur="doneEditG(g)" @keypress.enter="doneEditG(g)" @keyup.escape="cancelEditG(g)" v-focus>
@@ -15,13 +15,13 @@
             <div class="remove-item" @click="$deleteG(index)">
                 &times;
             </div>
-            <div id="tasks["+index+"]" style="display: none;">
+            <div >
                 <Todo></Todo>
             </div>
         </div>
     </div>
 </template>
-
+<!-- id="tasks["+index+"]" style="display: none;" -->
 <script>
 import todo from './todo.vue'
 import Todo from './todo.vue';
@@ -73,14 +73,14 @@ export default {
             return this.editGroup(g);
         },
         openTodo(index){
-            var taskDiv = document.getElementById("tasks["+index+"]");
-            console.log(taskDiv);
-            if(taskDiv.style.display == 'none'){
-                taskDiv.style.display = 'block';
-            }
-            else{
-                taskDiv.style.display = 'none';
-            }
+            // var taskDiv = document.getElementById("tasks["+index+"]");
+            // console.log(taskDiv);
+            // if(taskDiv.style.display == 'none'){
+            //     taskDiv.style.display = 'block';
+            // }
+            // else{
+            //     taskDiv.style.display = 'none';
+            // }
 
         },
 

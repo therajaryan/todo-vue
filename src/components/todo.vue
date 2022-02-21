@@ -35,7 +35,7 @@ export default {
       message: '',
       ddate: '',
       idForTodo: 1,
-      counter: 1,
+      // counter: 1,
       editCache: '',
       groups: [
         // {
@@ -89,7 +89,7 @@ export default {
           this.ddate = ''
           this.message = ''
           this.idForTodo++
-          counter++
+          // counter++
       },
       $delete(index){
         this.todos.splice(index, 1)
