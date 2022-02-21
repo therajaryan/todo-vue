@@ -1,16 +1,17 @@
 <template>
   <div id="text">
+      
        TASKS:
-      <p></p>
+      <br><br>
       <form>
         <input style="margin:auto; width: 220px; margin-bottom:10px;" type="text" class="todo-input" placeholder="What's up" v-model="message">
         <input style="margin:auto; width: 220px; margin-bottom:10px;" type="date" class="todo-input" v-model="ddate" >
-        <button v-on:click.prevent="addTodo" style="margin:auto; ">Add</button>
+        <button v-on:click.prevent="addTodo" style="margin:auto; margin-top:10px;">Add</button>
       </form>
       <div style="margin-top: 10px;">
         <button v-on:click.prevent="sortDate">Sort by Date</button>
       </div>
-      <p></p>
+      
       <div v-for="(todo, index) in todos" :key="todo.id" class="todo-item">
           <div class="todo-item-left">
             <input type="checkbox" v-model="todo.completed">
@@ -21,21 +22,32 @@
           </div>
         <div class="remove-item" @click="$delete(index)">
           &times;
-       </div>
-     </div>
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'todo-list', 
+  props: {
+   groupID: Number,
+  },
   data () { 
     return {
       message: '',
       ddate: '',
       idForTodo: 1,
-      counter: 1,
+      groupID: 0,
+      // counter: 1,
       editCache: '',
+      groups: [
+        // {
+        //   'id': 1,
+        //   'name': 'Tech',
+        //   'open': false,
+        // }
+      ],
       todos: [
           //{
             // 'id': 1,
@@ -60,6 +72,7 @@ export default {
      }
     }
   },
+  
   methods: {
       sortDate(){
         var x = this.todos.sort((a, b) => new Date(a.date) - new Date(b.date))
@@ -81,7 +94,7 @@ export default {
           this.ddate = ''
           this.message = ''
           this.idForTodo++
-          counter++
+          // counter++
       },
       $delete(index){
         this.todos.splice(index, 1)
